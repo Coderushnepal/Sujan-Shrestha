@@ -1,18 +1,28 @@
 import React, { Component } from "react";
 
-import Loading from "../Loading/Loading";
+import Loading from "../Loading";
+import { withUser } from "../hoc";
 
-const OddComponent = () => (
-  <div>
-    <h4>I am odd</h4>
-  </div>
-);
+const OddComponent = (props) => {
+  return (
+    <div>
+      {props.user ? (
+        <h4>I am enhanced odd {props.user.name}</h4>
+      ) : (
+        <h4>I am odd</h4>
+      )}
+    </div>
+  );
+};
 
 const EvenComponent = () => (
   <div>
     <h4>I am even</h4>
   </div>
 );
+
+const EnhancedOddComponent = withUser(OddComponent);
+const EnhancedEvenComponent = withUser(EvenComponent);
 
 class Counter extends Component {
   constructor(props) {
@@ -50,7 +60,13 @@ class Counter extends Component {
     return (
       <div className="counter">
         <h2>Count: {this.state.count}</h2>
-        <h2>{this.state.count % 2 ? <OddComponent /> : <EvenComponent />}</h2>
+        <h2>
+          {this.state.count % 2 ? (
+            <EnhancedOddComponent label="Oddddd" />
+          ) : (
+            <EnhancedEvenComponent />
+          )}
+        </h2>
         <button onClick={this.handleIncrement}>+</button>
         <button onClick={this.handleDecrement}>-</button>
         {this.state.isLoading ? (
