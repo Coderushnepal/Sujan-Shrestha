@@ -1,7 +1,18 @@
 import React, { Component } from "react";
-import { isVowel } from "../../utils/strings";
 
-import "./counter.css";
+import Loading from "../Loading/Loading";
+
+const OddComponent = () => (
+  <div>
+    <h4>I am odd</h4>
+  </div>
+);
+
+const EvenComponent = () => (
+  <div>
+    <h4>I am even</h4>
+  </div>
+);
 
 class Counter extends Component {
   constructor(props) {
@@ -9,15 +20,18 @@ class Counter extends Component {
 
     this.state = {
       count: 0,
+      isLoading: true,
+      data: [],
     };
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
-  }
-
-  componentDidUpdate() {
-    console.log("componentDidUpdate");
+    setTimeout(() => {
+      this.setState({
+        isLoading: false,
+        data: [{ name: "one" }, { name: "two" }, { name: "three" }],
+      });
+    }, 3000);
   }
 
   handleIncrement = () => {
@@ -34,25 +48,20 @@ class Counter extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Counter: {this.state.count}</h1>
-        {this.props.children}
-        <p className={isVowel(this.props.name[0]) ? "red" : "green"}>
-          {this.props.name}
-        </p>
-        <button
-          className="plus"
-          onClick={
-            this.props.handleIncrement
-              ? this.props.handleIncrement
-              : this.handleIncrement
-          }
-        >
-          +
-        </button>
-        <button className="minus" onClick={this.handleDecrement}>
-          -
-        </button>
+      <div className="counter">
+        <h2>Count: {this.state.count}</h2>
+        <h2>{this.state.count % 2 ? <OddComponent /> : <EvenComponent />}</h2>
+        <button onClick={this.handleIncrement}>+</button>
+        <button onClick={this.handleDecrement}>-</button>
+        {this.state.isLoading ? (
+          <Loading />
+        ) : (
+          <div>
+            {this.state.data.map((item) => (
+              <h3 key={item.name}>{item.name}</h3>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
