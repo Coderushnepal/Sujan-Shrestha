@@ -1,17 +1,7 @@
 import React from "react";
-import "./App.css";
 
-import Clock from "./Clock";
-import Counter from "./Counter";
+import Router from "./Router";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>App started</h1>
-      <Clock />
-      <Counter />
-    </div>
-  );
-}
+const App = () => <Router />;
 
 export default App;
