@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 
 import Beer from "./Beer";
+import * as toast from "../../../utils/toast";
 import { Header, Spinner } from "../../common";
-import { dummyBeersData } from "../../../constants/dummyData";
+import { fetchBeers } from "../../../services/beerService";
 
 class BeerGrid extends Component {
   constructor(props) {
@@ -17,12 +18,18 @@ class BeerGrid extends Component {
   scrollParentRef = null;
 
   fetchBeers = async () => {
-    setTimeout(() => {
+    try {
+      const data = await fetchBeers();
+
       this.setState({
-        beers: dummyBeersData,
+        beers: data,
         isLoading: false,
       });
-    }, 3000);
+    } catch (error) {
+      const errorMsg = error.response.data.message;
+
+      toast.error({ title: "On Snap!!", message: errorMsg });
+    }
   };
 
   componentDidMount() {

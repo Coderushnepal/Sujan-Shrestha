@@ -27,7 +27,7 @@ class Beer extends Component {
 
   render() {
     const { isFavorite, showModal } = this.state;
-    const { name, description, image_url } = this.props.info;
+    const { id, name, description, image_url } = this.props.info;
 
     return (
       <Fragment>
@@ -35,7 +35,7 @@ class Beer extends Component {
           <BeerModal
             show={showModal}
             handleClose={this.handleModalClose}
-            beer={this.props.info}
+            beerId={id}
           />
         ) : null}
         <div className="card">
