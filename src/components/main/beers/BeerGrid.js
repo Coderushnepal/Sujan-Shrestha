@@ -37,7 +37,7 @@ class BeerGrid extends Component {
   }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, beers } = this.state;
 
     return (
       <div>
@@ -48,7 +48,7 @@ class BeerGrid extends Component {
         ) : (
           <main>
             <div className="container" ref={(r) => (this.scrollParentRef = r)}>
-              {this.state.beers.map((beer) => (
+              {beers.map((beer) => (
                 <Beer key={beer.id} info={beer} />
               ))}
             </div>

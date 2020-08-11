@@ -98,9 +98,9 @@ class BeerModal extends Component {
 }
 
 BeerModal.propTypes = {
-  beerId: PropTypes.number,
-  handleClose: PropTypes.func,
-  show: PropTypes.bool,
+  beerId: PropTypes.number.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
 };
 
 export default BeerModal;

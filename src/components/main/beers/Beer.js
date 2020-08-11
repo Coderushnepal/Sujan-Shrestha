@@ -31,24 +31,22 @@ class Beer extends Component {
 
     return (
       <Fragment>
-        {showModal ? (
+        {showModal && (
           <BeerModal
             show={showModal}
             handleClose={this.handleModalClose}
             beerId={id}
           />
-        ) : null}
+        )}
         <div className="card">
-          <span className={`favorite ${isFavorite ? "active" : ""}`}>
+          <span className={`favourite ${isFavorite ? "active" : ""}`}>
             <i className="far fa-star" />
           </span>
           <div
             className="card__imgcontainer"
             style={{ backgroundImage: `url(${image_url})` }}
           />
-          <h2 onClick={this.handleModalOpen}>
-            {name} {this.props.abc}
-          </h2>
+          <h2 onClick={this.handleModalOpen}>{name}</h2>
           <span className="card__description">{description}</span>
         </div>
       </Fragment>
@@ -58,11 +56,11 @@ class Beer extends Component {
 
 Beer.propTypes = {
   info: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    description: PropTypes.string,
-    image_url: PropTypes.string,
-  }),
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    image_url: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Beer;
