@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import BeerModal from "./BeerModal";
-import { dummyBeersData as favorites } from "../../../constants/dummyData";
+import { favoriteBeersActions } from "../../../actions";
 
 class Beer extends Component {
   constructor(props) {
@@ -25,10 +27,29 @@ class Beer extends Component {
     });
   };
 
+  toggleFavorite = () => {
+    const {
+      info,
+      favoriteBeers,
+      addFavoriteBeer,
+      removeFavoriteBeer,
+    } = this.props;
+
+    const beerIndex = favoriteBeers.findIndex((beer) => beer.id === info.id);
+
+    if (beerIndex > -1) {
+      removeFavoriteBeer(info.id);
+    } else {
+      addFavoriteBeer(info);
+    }
+  };
+
   render() {
     const { showModal } = this.state;
     const { id, name, description, image_url } = this.props.info;
-    const beerIndex = favorites.findIndex((beer) => beer.id === id);
+    const beerIndex = this.props.favoriteBeers.findIndex(
+      (beer) => beer.id === id
+    );
 
     return (
       <Fragment>
@@ -41,7 +62,10 @@ class Beer extends Component {
         )}
         <div className="card">
           <span className={`favourite ${beerIndex > -1 ? "active" : ""}`}>
-            <i className={`${beerIndex > -1 ? "fas" : "far"} fa-star`} />
+            <i
+              className={`${beerIndex > -1 ? "fas" : "far"} fa-star`}
+              onClick={this.toggleFavorite}
+            />
           </span>
           <div
             className="card__imgcontainer"
@@ -64,4 +88,16 @@ Beer.propTypes = {
   }).isRequired,
 };
 
-export default Beer;
+const mapStateToProps = ({ favoriteBeersReducer }) => {
+  return {
+    favoriteBeers: favoriteBeersReducer.favoriteBeers,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators({ ...favoriteBeersActions }, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Beer);
