@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import Beer from "./Beer";
 import * as toast from "../../../utils/toast";
-import { Header, Spinner } from "../../common";
+import { Header, Spinner, Counter } from "../../common";
 import { fetchBeers } from "../../../services/beerService";
 import { connect } from "react-redux";
 
@@ -72,6 +72,7 @@ class BeerGrid extends Component {
         <Header setSearchText={this.setSearchText} />
 
         <main>
+          <Counter />
           <div className="container" ref={(r) => (this.scrollParentRef = r)}>
             {!!error && (
               <div

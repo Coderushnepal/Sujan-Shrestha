@@ -96,23 +96,15 @@ const mapDispatchToProps = (dispatch) => {
     /** map to an object first */
     // actions: bindActionCreators({ ...counterActions }, dispatch),
 
-    // actions: {
-    //   increaseCount: () => {},
-    //   decreaseCount: () => {},
-    //   modifyCount: (value) => {},
-    // },
-
-    // ...bindActionCreators({ ...counterActions }, dispatch)
-
     /** bind using individual action creators */
     // increaseCount: bindActionCreators(counterActions.increaseCount, dispatch),
     // decreaseCount: bindActionCreators(counterActions.decreaseCount, dispatch),
     // modifyCount: bindActionCreators(counterActions.modifyCount, dispatch),
 
     /** manually call dispatch */
-    // increaseCount: dispatch(() => counterAction.increaseCount())
-    // decreaseCount: dispatch(() => counterAction.decreaseCount())
-    // modifyCount: dispatch((value) => counterAction.modifyCount(value))
+    // increaseCount: () => dispatch(counterActions.increaseCount()),
+    // decreaseCount: () => dispatch(counterActions.decreaseCount()),
+    // modifyCount: (value) => dispatch(counterActions.modifyCount(value)),
   };
 };
 
