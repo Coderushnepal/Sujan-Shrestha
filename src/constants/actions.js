@@ -7,3 +7,4 @@ export const REMOVE_DATE = "date/remove";
 
 export const ADD_FAVORITE_BEER = "favoriteBeers/add";
 export const REMOVE_FAVORITE_BEER = "favoriteBeers/remove";
+export const ERROR_FETCHING_BEER = "favoriteBeers/error";

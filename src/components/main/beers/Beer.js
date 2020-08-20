@@ -27,7 +27,7 @@ class Beer extends Component {
     });
   };
 
-  toggleFavorite = () => {
+  toggleFavorite = async () => {
     const {
       info,
       favoriteBeers,

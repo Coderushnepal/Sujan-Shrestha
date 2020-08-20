@@ -5,6 +5,7 @@ import Beer from "./Beer";
 import * as toast from "../../../utils/toast";
 import { Header, Spinner } from "../../common";
 import { fetchBeers } from "../../../services/beerService";
+import { connect } from "react-redux";
 
 class BeerGrid extends Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class BeerGrid extends Component {
   }
 
   render() {
+    const { error } = this.props;
     const { beers, hasMore } = this.state;
 
     return (
@@ -71,6 +73,19 @@ class BeerGrid extends Component {
 
         <main>
           <div className="container" ref={(r) => (this.scrollParentRef = r)}>
+            {!!error && (
+              <div
+                className="error"
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  backgroundColor: "#dd0000",
+                  color: "white",
+                }}
+              >
+                {error}
+              </div>
+            )}
             <InfiniteScroll
               dataLength={beers.length}
               next={this.fetchBeers}
@@ -88,4 +103,10 @@ class BeerGrid extends Component {
   }
 }
 
-export default BeerGrid;
+const mapStateToProps = ({ favoriteBeersReducer: { error } }) => {
+  return {
+    error,
+  };
+};
+
+export default connect(mapStateToProps)(BeerGrid);
